@@ -17,7 +17,7 @@ public class Ex02 {
 		byte[] buff = new byte[1024];	// 그릇 제조, Ex01에서는 한모금씩 흡수했다면 이번에는 그릇에 담아 흡수
 		System.out.println("복사 시작");
 		while(true) {
-			int data = in.read(buff);	// 그릇을 제공함(write 할수 있게)
+			int data = in.read(buff);	// 그릇을 제공함(write 할수 있게) cf) 처음에 read안에 data로 썼다가 용량 8기가짜리 괴생명체 탄생했음
 			if(data == -1) {
 				System.out.println("복사 끝" + data);
 				break;
