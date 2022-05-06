@@ -1,4 +1,4 @@
-package com.javaex.ex03;
+package com.javaex.ex05;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,62 +10,66 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.javaex.ex05.Person;
-
-public class Ex03 {
+public class PhoneBookApp2 {
 
 	public static void main(String[] args) throws IOException {
 		
-		// 데이터 추가
-		List<Person> pList = new ArrayList<Person>();
-		Person addPerson = new Person("유재석", "010-5555-5555", "02-7552-9994");
-		
+		List<Person>personList = new ArrayList<Person>();
+		// 읽기 스트림
 		Reader fr = new FileReader("../../file/PhoneDB.txt");
 		BufferedReader br = new BufferedReader(fr);
 		
-		String name;
-		String hp;
-		String company;
-		
+		// text파일을 1줄씩 읽어서 리스트에 추가
 		while(true) {
+			
 			String str = br.readLine();
+			
 			if(str == null) {
 				break;
 			}
 			
-			String[] info = str.split(",");
-			name = info[0];
-			hp = info[1];
-			company = info[2];
+			String[] personInfo = str.split(",");
 			
-			Person person = new Person(name, hp, company);
-			pList.add(person);
+			String name = personInfo[0];
+			String hp = personInfo[1];
+			String company = personInfo[2];
+			
+			Person person = new Person (name, hp, company);
+			personList.add(person);
 		}
 		
-		pList.add(addPerson);
+		Person p = new Person("황일영", "010-1234-1234", "02-123-1234");
 		
-		for(Person person : pList) {
+		personList.add(p);
+		
+		for(Person person : personList) {
 			System.out.println("이름: " + person.getName());
 			System.out.println("핸드폰: " + person.getHp());
 			System.out.println("회사: " + person.getCompany());
 			System.out.println("");
 		}
 		
-		// 파일 재작성 & 저장
+		// 쓰기 스트림 (쓰기를 실행하는 순간 백지화)
 		Writer fw = new FileWriter("../../file/PhoneDB.txt");
 		BufferedWriter bw = new BufferedWriter(fw);
 		
-		for(Person newPerson : pList) {
-			String newPeople = newPerson.getName() + "," + newPerson.getHp() + "," + newPerson.getCompany();
+		// 파일에 저장
+		for(Person person : personList) {
+			String saveStr = person.getName() + "," + person.getHp() + "," + person.getCompany();
+			System.out.println(saveStr);
 			
-			bw.write(newPeople);
+			bw.write(saveStr);
 			bw.newLine();
 			
 		}
 		
 		
+		
+		
+		
 		bw.close();
 		br.close();
+		
 	}
 
 }
